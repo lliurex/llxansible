@@ -1,0 +1,7 @@
+---
+# defaults file for lliurex
+friend_name: "Valentin"
+pkglist:
+  - terminator
+  - debian-policy
+

@@ -1,0 +1,82 @@
+---
+# tasks file for lliurex
+
+- block:
+  - name: Gather lliurex version
+    command: lliurex-version -n
+    register: llx_version
+
+  - name: Gather lliurex flavour
+    command: lliurex-version -f
+    register: llx_flavour
+
+  - name: Setup facts for version
+    ansible.builtin.set_fact:
+      llxversion: "{{ llx_version.stdout }}"
+
+  - name: Setup facts for flavour
+    ansible.builtin.set_fact:
+      llxflavour: "{{ llx_flavour.stdout }}"
+
+- name: Generate greeting and store result
+  demo_hello: 
+    name: "{{ friend_name }}" 
+  register: demo_greeting 
+
+- name: dump output
+  debug: 
+    msg: "{{ demo_greeting }}\n"
+
+- name: "Ansible | List all known variables and facts"
+  debug:
+    var: hostvars[inventory_hostname]
+
+- name: Update apt
+  apt:
+    upgrade: "no"
+    update_cache: yes
+
+- name: Install "nmap" package
+  apt:
+    name: nmap
+    state: latest
+    update_cache: true
+
+- name: Install "iptraf" (2) package via install_pkgs
+  vars:
+    item: "iptraf-ng"
+  include_tasks: install_pkgs.yml
+
+# - name: Install meta package from fact value
+#   vars:
+#     item: "lliurex-meta-{{llxflavour}}"
+#   include_tasks: install_pkgs.yml
+
+- name: Install yakuake only for desktops
+  vars: 
+    item: "yakuake"
+  include_tasks: install_pkgs.yml
+  when: (llxflavour is defined) and (llxflavour == "desktop")
+
+- name: Install list of packages
+  include_tasks: install_pkgs.yml
+  loop: "{{ pkglist }}"
+
+- name: Copy desktop to user home
+  copy_desktop:
+    name: zero-center.desktop
+    user: lliurex
+
+- name: Write release into a file
+  copy:
+    dest: "/etc/llxversion23"
+    content: |
+      23
+  when: (llxversion is defined) and (llxversion | regex_search("^23.*"))
+
+- name: Write release into a file
+  copy:
+    dest: "/etc/llxversion21"
+    content: |
+      21
+  when: (llxversion is defined) and (llxversion | regex_search("^21.*"))

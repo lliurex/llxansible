@@ -1,0 +1,10 @@
+---
+# - name: Debug msg
+#   debug:
+#     msg: "install {{item}}"
+- name: "Install {{item}}"
+  apt:
+    update_cache: false
+    name: "{{item}}"
+    state: latest
+  when: item is defined

@@ -1,0 +1,8 @@
+---
+# vars file for lliurex
+# Can't be overriden from foreman
+# pkglist:
+#   - nmap
+#   - zip
+#   - pigz
+
