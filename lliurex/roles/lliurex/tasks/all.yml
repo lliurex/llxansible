@@ -12,4 +12,7 @@
   loop:
     - { path: "/etc/lliurex-auto-upgrade/tags/prn4", state: "absent" }
     - { path: "/etc/lliurex-auto-upgrade/tags/pro4", state: "touch" }
+  loop_control:
+    loop_var: i
+    index_var: n
   when: ansible_facts['hostname'] | lower is match('^pro4.*')
