@@ -5,3 +5,11 @@
   apt:
     upgrade: "no"
     update_cache: yes
+- name: Cambiar tags de prn4 a pro4 en equipos que tienen el hostname comenzando con pro4
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+  loop:
+    - { path: "/etc/lliurex-auto-upgrade/tags/prn4", state: "absent" }
+    - { path: "/etc/lliurex-auto-upgrade/tags/pro4", state: "touch" }
+  when: ansible_facts['hostname'] | lower is match('^pro4.*')
