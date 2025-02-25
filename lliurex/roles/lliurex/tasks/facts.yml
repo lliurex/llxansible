@@ -1,0 +1,36 @@
+---
+# tasks file for lliurex
+
+- name: Gather lliurex version
+  command: lliurex-version -n
+  register: llx_version
+  ignore_errors: yes
+
+- name: Gather lliurex flavour
+  command: lliurex-version -f
+  register: llx_flavour
+  ignore_errors: yes
+
+- name: Gather /etc/school
+  command: cat /etc/school
+  register: centro_cmd
+  ignore_errors: yes
+
+- name: Gather /etc/type
+  command: cat /etc/type
+  register: tipo_cmd
+  ignore_errors: yes
+
+- name: Gather /etc/level
+  command: cat /etc/level
+  register: nivel_cmd
+  ignore_errors: yes
+
+- name: Setup facts
+  set_fact:
+    llxversion: "{{ llx_version.stdout }}"
+    llxflavour: "{{ llx_flavour.stdout }}"
+    centro: "{{ centro_cmd.stdout }}"
+    tipo: "{{ tipo_cmd.stdout }}"
+    nivel: "{{ nivel_cmd.stdout }}"
+  ignore_errors: yes

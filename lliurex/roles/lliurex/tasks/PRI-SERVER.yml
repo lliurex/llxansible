@@ -1,0 +1,3 @@
+- name: debug pri-server
+  debug:
+    msg: "(rol lliurex) pri-server"

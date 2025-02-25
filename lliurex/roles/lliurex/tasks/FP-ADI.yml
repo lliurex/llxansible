@@ -1,0 +1,3 @@
+- name: debug fp-adi
+  debug:
+    msg: "(rol lliurex) fp-adi"
