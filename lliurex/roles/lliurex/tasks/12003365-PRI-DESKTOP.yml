@@ -1,0 +1,3 @@
+- name: debug centro 12003365-pri-desktop
+  debug:
+    msg: "(rol lliurex) centro 12003365-pri-desktop"

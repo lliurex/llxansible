@@ -1,0 +1,3 @@
+- name: debug centro 12002351-sec
+  debug:
+    msg: "(rol lliurex) centro 12002351-sec"

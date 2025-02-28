@@ -1,0 +1,3 @@
+- name: debug centro 46021320
+  debug:
+    msg: "(rol lliurex) centro {{ centro }}"

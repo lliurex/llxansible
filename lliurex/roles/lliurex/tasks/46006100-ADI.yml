@@ -1,0 +1,3 @@
+- name: debug centro 46006100-adi
+  debug:
+    msg: "(rol lliurex) centro 46006100-adi"

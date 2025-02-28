@@ -1,0 +1,3 @@
+- name: debug centro 46012823-server
+  debug:
+    msg: "(rol lliurex) centro 46012823-server"
